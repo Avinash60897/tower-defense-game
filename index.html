@@ -47,16 +47,49 @@
     box-shadow: 0 3px 0 #222; cursor: pointer;
   }
   #backBtn:active { transform: translateY(2px); box-shadow: 0 1px 0 #222; }
-
-  /* Build bar */
-  #buildBar {
-    position: absolute; bottom: 0; left: 0; right: 0; height: 108px;
-    background: linear-gradient(180deg, rgba(10,18,12,0) 0%, rgba(10,18,12,0.88) 25%, rgba(8,14,10,0.98) 100%);
-    padding: 3px 6px 6px; display: flex; flex-direction: column; gap: 3px; z-index: 6;
+  #startWaveBtn {
+    font-family: inherit; font-weight: 900; font-size: 11px; letter-spacing: 0.7px;
+    padding: 7px 11px; border-radius: 9px; border: 1px solid rgba(180,240,180,0.6);
+    color: #06210c; background: linear-gradient(180deg, #b6ffc0, #63d97a 55%, #33a94c);
+    box-shadow: 0 3px 0 #1e6b31; cursor: pointer;
   }
-  #tabs { display: flex; gap: 3px; justify-content: center; }
+  #startWaveBtn:disabled { cursor: default; opacity: 0.58; filter: saturate(0.45); }
+  #startWaveBtn:active:not(:disabled) { transform: translateY(2px); box-shadow: 0 1px 0 #1e6b31; }
+  #shopBtn {
+    font-family: inherit; font-weight: 900; font-size: 11px; letter-spacing: 0.7px;
+    padding: 7px 11px; border-radius: 9px; border: 1px solid rgba(255,220,130,0.55);
+    color: #2a1e05; background: linear-gradient(180deg, #ffe09a, #f0ad42 55%, #ce7414);
+    box-shadow: 0 3px 0 #8a5508; cursor: pointer;
+  }
+  #shopBtn:active { transform: translateY(2px); box-shadow: 0 1px 0 #8a5508; }
+
+  /* Tower shop */
+  #buildBar {
+    position: absolute; bottom: 0; left: 0; right: 0; height: 390px;
+    background: linear-gradient(180deg, rgba(10,18,12,0.94), rgba(8,14,10,0.99));
+    border-top: 1px solid rgba(140,205,145,0.35);
+    padding: 14px 18px 16px; display: flex; flex-direction: column; gap: 10px; z-index: 6;
+  }
+  .shopHeading { display: flex; align-items: center; justify-content: space-between; }
+  .shopTitle { font-size: 20px; font-weight: 900; color: #ffe0a0; letter-spacing: 1.5px; }
+  .shopSubtitle { font-size: 10px; color: #a8c8a8; letter-spacing: 0.6px; }
+  #shopHome { display: flex; align-items: center; justify-content: center; flex: 1; }
+  #buyTowersBtn {
+    width: min(520px, 92%); min-height: 155px; border-radius: 16px; cursor: pointer;
+    border: 2px solid rgba(255,220,130,0.62); color: #fff3ce; font-family: inherit;
+    background: linear-gradient(135deg, rgba(82,124,74,0.98), rgba(23,51,30,0.99));
+    box-shadow: 0 10px 28px rgba(0,0,0,0.42), inset 0 1px 0 rgba(255,255,255,0.16);
+  }
+  #buyTowersBtn strong { display: block; font-size: 28px; letter-spacing: 2px; }
+  #buyTowersBtn span { display: block; margin-top: 9px; font-size: 12px; color: #d4e8ce; letter-spacing: 1px; }
+  #buyTowersBtn:hover { filter: brightness(1.12); transform: translateY(-2px); }
+  #towerBrowser { display: flex; flex-direction: column; gap: 9px; flex: 1; min-height: 0; }
+  #towerBrowser.hidden, #shopHome.hidden { display: none; }
+  #towerBrowserTop { display: flex; align-items: center; gap: 12px; }
+  #towerBackBtn { font-family: inherit; font-weight: 900; font-size: 11px; padding: 7px 11px; border-radius: 7px; cursor: pointer; color: #e8f0e2; background: #354338; border: 1px solid rgba(180,240,180,0.38); }
+  #tabs { display: flex; gap: 6px; justify-content: center; flex-wrap: wrap; }
   .tab {
-    font-size: 9px; padding: 3px 8px; border-radius: 5px;
+    font-size: 11px; padding: 6px 13px; border-radius: 7px;
     border: 1px solid rgba(140,205,145,0.22); background: rgba(30,45,35,0.8);
     color: #a8c8a8; cursor: pointer; font-family: inherit; font-weight: 700; letter-spacing: 0.5px;
   }
@@ -65,25 +98,25 @@
     border-color: rgba(180,240,180,0.6);
   }
   #towerStrip {
-    display: flex; gap: 4px; overflow-x: auto; overflow-y: hidden;
-    padding: 2px 2px; height: 78px; align-items: center; flex: 1;
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; overflow-y: auto;
+    padding: 4px; align-content: start; flex: 1;
     -webkit-overflow-scrolling: touch;
   }
-  #towerStrip::-webkit-scrollbar { height: 4px; }
+  #towerStrip::-webkit-scrollbar { width: 6px; }
   #towerStrip::-webkit-scrollbar-thumb { background: rgba(140,205,145,0.3); border-radius: 2px; }
   .tcard {
-    flex: 0 0 auto; width: 62px; height: 72px; padding: 2px;
-    border-radius: 8px; background: linear-gradient(180deg, rgba(33,50,37,0.95), rgba(13,21,15,0.97));
-    border: 1px solid rgba(140,205,145,0.22); cursor: pointer; text-align: center;
+    min-height: 185px; padding: 9px;
+    border-radius: 12px; background: linear-gradient(180deg, rgba(42,68,48,0.98), rgba(13,21,15,0.98));
+    border: 1px solid rgba(140,205,145,0.34); cursor: pointer; text-align: center;
     transition: transform 0.1s;
   }
   .tcard.selected { border-color: #7ee08a; box-shadow: 0 0 0 2px rgba(126,224,138,0.35), 0 0 16px rgba(126,224,138,0.3); transform: translateY(-3px); }
   .tcard.poor { opacity: 0.42; filter: saturate(0.4); }
-  .tcard canvas { display: block; width: 56px; height: 44px; margin: 0 auto; }
-  .tcard .tn { font-size: 7px; font-weight: 800; letter-spacing: 0.2px; text-transform: uppercase; color: #c8dcc8; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; padding: 0 2px; }
-  .tcard .tc { font-size: 9px; font-weight: 800; color: #ffd257; }
-  .tcard .tc::before { content: '◉'; font-size: 7px; margin-right: 1px; }
-  .tcard .plc { font-size: 6px; color: #8fa88f; letter-spacing: 0.5px; }
+  .tcard canvas { display: block; width: 126px; height: 98px; margin: 0 auto; }
+  .tcard .tn { font-size: 13px; font-weight: 900; letter-spacing: 0.3px; text-transform: uppercase; color: #e5f5df; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; padding: 0 2px; }
+  .tcard .tc { font-size: 15px; font-weight: 900; color: #ffd257; margin-top: 3px; }
+  .tcard .tc::before { content: '◉'; font-size: 9px; margin-right: 2px; }
+  .tcard .plc { font-size: 10px; color: #a8c8a8; letter-spacing: 0.6px; margin-top: 2px; }
   .tcard .plc.water { color: #80c0ff; }
   .tcard .plc.mountain { color: #d0a060; }
 
@@ -194,6 +227,11 @@
     color: rgba(200,225,200,0.45); z-index: 5; pointer-events: none;
     text-shadow: 0 1px 3px rgba(0,0,0,0.8);
   }
+  #buildVersion {
+    position: absolute; right: 10px; bottom: 8px; z-index: 5; pointer-events: none;
+    font-size: 9px; letter-spacing: 0.8px; color: rgba(220,240,220,0.45);
+    text-shadow: 0 1px 3px rgba(0,0,0,0.8);
+  }
 </style>
 </head>
 <body>
@@ -202,17 +240,26 @@
 
   <!-- In-game HUD -->
   <div id="hud" class="hidden">
-    <div class="stat"><span class="ico heart">❤</span><span id="lives">20</span></div>
-    <div class="stat"><span class="ico coin">◉</span><span id="gold">300</span></div>
+    <div class="stat"><span class="ico heart">❤</span><span id="lives">3</span></div>
+    <div class="stat"><span class="ico coin">◉</span><span id="gold">500</span></div>
     <div class="stat"><span class="ico wave">⚔</span><span id="waveNum">1</span></div>
+    <button id="shopBtn">🏪 SHOP</button>
+    <button id="startWaveBtn">▶ START WAVE</button>
     <button id="backBtn">← MENU</button>
   </div>
 
-  <div id="hint" class="hidden">CLICK A FOUNDATION TO BUILD · TAP TOWER TO UPGRADE / SELL</div>
+  <div id="hint" class="hidden">OPEN SHOP → BUY TOWERS → CLICK A FOUNDATION TO BUILD</div>
+  <div id="buildVersion">SHOP GRID • v2</div>
 
   <div id="buildBar" class="hidden">
-    <div id="tabs"></div>
-    <div id="towerStrip"></div>
+    <div class="shopHeading"><span class="shopTitle" id="shopTitle">SHOP</span><span class="shopSubtitle" id="shopSubtitle">CHOOSE WHAT YOU NEED</span></div>
+    <div id="shopHome">
+      <button id="buyTowersBtn"><strong>⚔ BUY TOWERS</strong><span>Browse and place your defenses</span></button>
+    </div>
+    <div id="towerBrowser" class="hidden">
+      <div id="towerBrowserTop"><button id="towerBackBtn">← SHOP</button><div id="tabs"></div></div>
+      <div id="towerStrip"></div>
+    </div>
   </div>
 
   <!-- Menu screen -->
@@ -2762,8 +2809,9 @@ class Game {
     this.particles = [];
     this.texts = [];
     this.effects = [];
-    this.gold = 250 + N * 8;
-    this.lives = 20;
+    // Every level starts with a generous setup budget.
+    this.gold = 750 + N * 10;
+    this.lives = 3;
     this.kills = 0;
     this.goldEarned = 0;
     this.state = 'game';
@@ -2780,21 +2828,70 @@ class Game {
     this.spawnQueue.sort((a, b) => a.time - b.time);
     this.spawnIndex = 0;
     this.waveTimer = 0;
-    this.waveActive = true;
+    // Give the player a setup phase: no enemy is created until Start Wave is pressed.
+    this.waveActive = false;
     this.activeTab = 'archer';
+    document.querySelectorAll('.tab').forEach(tab => tab.classList.toggle('active', tab.dataset.cat === 'archer'));
     this.finished = false;
 
     // Reveal HUD
     document.getElementById('hud').classList.remove('hidden');
     document.getElementById('hint').classList.remove('hidden');
-    document.getElementById('buildBar').classList.remove('hidden');
+    document.getElementById('buildBar').classList.add('hidden');
+    this.showShopHome();
     document.getElementById('menuScreen').classList.add('hidden');
     document.getElementById('levelScreen').classList.add('hidden');
     document.getElementById('scoreScreen').classList.add('hidden');
     document.getElementById('gameOverScreen').classList.add('hidden');
+    const startWaveBtn = document.getElementById('startWaveBtn');
+    startWaveBtn.disabled = false;
+    startWaveBtn.textContent = '▶ START WAVE';
+    document.getElementById('shopBtn').textContent = '🏪 SHOP';
     this.rebuildStrip();
     this.syncHUD();
-    this.addText('LEVEL ' + N, W / 2, 150, '#9fe0ff', 32);
+    this.addText('BUILD YOUR DEFENSES', W / 2, 150, '#9fe0ff', 28);
+  }
+
+  toggleShop() {
+    if (this.state !== 'game') return;
+    const shop = document.getElementById('buildBar');
+    const opening = shop.classList.contains('hidden');
+    shop.classList.toggle('hidden', !opening);
+    document.getElementById('shopBtn').textContent = opening ? '✕ CLOSE SHOP' : '🏪 SHOP';
+    if (opening) {
+      this.showShopHome();
+    }
+  }
+
+  showShopHome() {
+    document.getElementById('shopTitle').textContent = 'SHOP';
+    document.getElementById('shopSubtitle').textContent = 'CHOOSE WHAT YOU NEED';
+    document.getElementById('shopHome').classList.remove('hidden');
+    document.getElementById('towerBrowser').classList.add('hidden');
+  }
+
+  showTowerBrowser() {
+    document.getElementById('shopTitle').textContent = 'BUY TOWERS';
+    document.getElementById('shopSubtitle').textContent = 'SELECT A TOWER TO PLACE IT';
+    document.getElementById('shopHome').classList.add('hidden');
+    document.getElementById('towerBrowser').classList.remove('hidden');
+    this.rebuildStrip();
+    this.updateShopSelection();
+  }
+
+  closeShop() {
+    document.getElementById('buildBar').classList.add('hidden');
+    document.getElementById('shopBtn').textContent = '🏪 SHOP';
+    this.showShopHome();
+  }
+
+  startWave() {
+    if (this.state !== 'game' || this.waveActive || this.finished) return;
+    this.waveActive = true;
+    this.waveTimer = 0;
+    document.getElementById('startWaveBtn').disabled = true;
+    document.getElementById('startWaveBtn').textContent = 'WAVE ACTIVE';
+    this.addText('WAVE ' + this.levelNum + ' STARTED', W / 2, 150, '#ffd257', 25);
   }
 
   update(dt) {
@@ -3000,7 +3097,7 @@ class Game {
       card.dataset.id = def.id;
       if (this.gold < def.cost) card.classList.add('poor');
       const cv = document.createElement('canvas');
-      cv.width = 112; cv.height = 88;
+      cv.width = 252; cv.height = 196;
       card.appendChild(cv);
       const nm = document.createElement('div');
       nm.className = 'tn'; nm.textContent = def.name;
@@ -3015,9 +3112,9 @@ class Game {
       strip.appendChild(card);
 
       const c = cv.getContext('2d');
-      c.clearRect(0, 0, 112, 88);
-      c.save(); c.translate(56, 74);
-      c.scale(0.6, 0.6);
+      c.clearRect(0, 0, 252, 196);
+      c.save(); c.translate(126, 164);
+      c.scale(1, 1);
       drawTowerFamily(c, def.visual.family, 0, 0, 1, -Math.PI / 2, 0, 0, def.visual);
       c.restore();
 
@@ -3025,6 +3122,7 @@ class Game {
         if (this.buildDef === def) { this.buildDef = null; }
         else { this.buildDef = def; this.selectedTower = null; }
         this.updateShopSelection();
+        if (this.buildDef) this.closeShop();
       });
     }
   }
@@ -3306,6 +3404,22 @@ document.getElementById('backBtn').addEventListener('click', () => {
   document.getElementById('gameOverScreen').classList.add('hidden');
   document.getElementById('menuScreen').classList.remove('hidden');
   game.state = 'menu';
+});
+
+document.getElementById('startWaveBtn').addEventListener('click', () => {
+  game.startWave();
+});
+
+document.getElementById('shopBtn').addEventListener('click', () => {
+  game.toggleShop();
+});
+
+document.getElementById('buyTowersBtn').addEventListener('click', () => {
+  game.showTowerBrowser();
+});
+
+document.getElementById('towerBackBtn').addEventListener('click', () => {
+  game.showShopHome();
 });
 
 document.getElementById('btnRetry').addEventListener('click', () => {
